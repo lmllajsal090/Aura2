@@ -1,0 +1,32 @@
+﻿# Unreal Engine 忽略项
+Binaries/
+Intermediate/
+Saved/
+DerivedDataCache/
+Build/
+Plugins/*/Binaries/
+Plugins/*/Intermediate/
+Plugins/*/Saved/
+Content/Backup/
+*.uasset
+*.umap
+
+# Rider / Visual Studio 忽略项
+.vs/
+.vscode/
+.idea/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.xcodeproj
+*.xcworkspace
+*.user
+*.userosscache
+*.opensdf
+*.sdf
+*.userprefs
+
+# 系统隐藏文件
+.DS_Store
+Thumbs.db
