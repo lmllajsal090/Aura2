@@ -14,4 +14,6 @@ class AURA_API AAuraCharater : public AAuraCharacterBase
 {
 	GENERATED_BODY()
 	
+public:
+	AAuraCharater();
 };
