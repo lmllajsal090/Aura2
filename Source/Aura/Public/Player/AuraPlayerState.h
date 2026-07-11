@@ -9,6 +9,8 @@
 /**
  * 
  */
+
+
 UCLASS()
 class AURA_API AAuraPlayerState : public APlayerState
 {
@@ -16,4 +18,12 @@ class AURA_API AAuraPlayerState : public APlayerState
 	
 public:
 	AAuraPlayerState();
+	
+protected:
+	
+	UPROPERTY()
+	TObjectPtr<UAbilitySystemComponent>AbilitySystemComponent;
+	
+	UPROPERTY()
+	TObjectPtr<UAttributeSet>AttributeSet;
 };

@@ -2,11 +2,17 @@
 
 
 #include "Character/AuraEnemy.h"
+
+#include "AbilitySystem/AuraabilitySystemComponent.h"
 #include "Aura/Aura.h"
 
 AAuraEnemy::AAuraEnemy()
 {
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
+	AbilitySystemComponent=CreateDefaultSubobject<UAuraabilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+	
+	AttributeSet=CreateDefaultSubobject<UAttributeSet>("AttributeSet");
 }
 
 void AAuraEnemy::HighlightActor()
