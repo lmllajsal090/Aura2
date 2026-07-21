@@ -8,6 +8,8 @@
 
 class UAuraUserWidget;
 class UOverlayWidgetController;
+class UAbilitySystemComponent;
+class UAttributeSet;
 struct FWidgetControllerParams;
 
 UCLASS()

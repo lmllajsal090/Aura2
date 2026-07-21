@@ -26,9 +26,12 @@ void AAuraPlayerController::BeginPlay()
 	
 	//单例模式，只存在一个增强玩家输入的本地指针系统
 	UEnhancedInputLocalPlayerSubsystem* Subsystem=ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	check(Subsystem);
-	Subsystem->AddMappingContext(
-		AuraContext,0);
+	
+	if (Subsystem)
+	{
+		Subsystem->AddMappingContext(
+			AuraContext,0);
+	}
 	
 	bShowMouseCursor=true;
 	DefaultMouseCursor=EMouseCursor::Default;

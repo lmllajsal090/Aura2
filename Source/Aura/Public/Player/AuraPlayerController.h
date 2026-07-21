@@ -8,11 +8,9 @@
 
 class UInputMappingContext;
 class UInputAction;
-
-struct FInputActionValue;
-
 class IEnemyInterface; 
 
+struct FInputActionValue;
 
 /**
  * 
@@ -38,6 +36,6 @@ private:
 	
 	void Move(const FInputActionValue& InputActionValue);
 	void CursorTrace();
-	IEnemyInterface* LastActor;
-	IEnemyInterface* ThisActor;
+	TObjectPtr<IEnemyInterface> LastActor;
+	TObjectPtr<IEnemyInterface> ThisActor;
 };

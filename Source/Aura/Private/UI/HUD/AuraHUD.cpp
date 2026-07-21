@@ -25,13 +25,19 @@ void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyst
 	
 	
 	UUserWidget* Widget = CreateWidget<UUserWidget>(GetWorld(), OverlayWidgetClass);
+	checkf(Widget, TEXT("CreateWidget failed: OverlayWidgetClass is invalid."));
 	OverlayWidget = Cast<UAuraUserWidget>(Widget);
+	checkf(
+	OverlayWidget,
+	TEXT("Overlay Widget must inherit from UAuraUserWidget. Check WBP_Overlay Parent Class.")
+);
 	
 	FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
 	UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
 	
-	OverlayUserWidget->SetWidgetController(WidgetController);
-	
+	OverlayWidget->SetWidgetController(WidgetController);
+	WidgetController->BroadcastInitiaValue();
 	Widget->AddToViewport();
+	
 }
 

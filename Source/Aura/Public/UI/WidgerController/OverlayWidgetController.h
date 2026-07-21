@@ -9,7 +9,8 @@
 class UAuraUserWidget;
 class UOverlayWidgetController;
 
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangeSignature,float,NewHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangeSignature,float,NewMaxHealth);
 /**
  * 
  */
@@ -19,8 +20,12 @@ class AURA_API UOverlayWidgetController : public UAuraWidgetController
 	GENERATED_BODY()
 	
 public:
+	virtual void BroadcastInitiaValue() override;
 	
+	UPROPERTY(BlueprintAssignable,Category="GAS|Attributes")
+	FOnHealthChangeSignature OnHealthChange;
 	
-	
+	UPROPERTY(BlueprintAssignable,Category="GAS|Attributes")
+	FOnMaxHealthChangeSignature OnMaxHealthChange;
 	
 };
