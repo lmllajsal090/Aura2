@@ -78,7 +78,10 @@ void AAuraPlayerController::CursorTrace()
 	{
 		if (LastActor != nullptr)
 		{
-			LastActor->UnHighlightActor();
+			if (IEnemyInterface* Enemy = Cast<IEnemyInterface>(LastActor.Get()))
+			{
+				Enemy->UnHighlightActor();
+			}
 			LastActor = nullptr;
 			ThisActor = nullptr;
 		}
@@ -86,14 +89,17 @@ void AAuraPlayerController::CursorTrace()
 	}
 
 	LastActor = ThisActor;
-	ThisActor = Cast<IEnemyInterface>(CursorHit.GetActor());
+	ThisActor = CursorHit.GetActor();
 
 	if (LastActor == nullptr)
 	{
 		if (ThisActor != nullptr)
 		{
 			// Case B
-			ThisActor->HighlightActor();
+			if (IEnemyInterface* Enemy = Cast<IEnemyInterface>(ThisActor.Get()))
+			{
+				Enemy->HighlightActor();
+			}
 		}
 		// Case A 两者都空，无操作
 	}
@@ -102,15 +108,24 @@ void AAuraPlayerController::CursorTrace()
 		if (ThisActor == nullptr)
 		{
 			// Case C
-			LastActor->UnHighlightActor();
+			if (IEnemyInterface* Enemy = Cast<IEnemyInterface>(LastActor.Get()))
+			{
+				Enemy->UnHighlightActor();
+			}
 		}
 		else
 		{
 			if (LastActor != ThisActor)
 			{
 				// Case D
-				LastActor->UnHighlightActor();
-				ThisActor->HighlightActor();
+				if (IEnemyInterface* Enemy = Cast<IEnemyInterface>(LastActor.Get()))
+				{
+					Enemy->UnHighlightActor();
+				}
+				if (IEnemyInterface* Enemy = Cast<IEnemyInterface>(ThisActor.Get()))
+				{
+					Enemy->HighlightActor();
+				}
 			}
 			// Case E 同一物体，无操作
 		}
