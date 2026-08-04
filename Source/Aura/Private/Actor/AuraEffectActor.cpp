@@ -34,6 +34,32 @@ void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor,TSubclassOf<UGame
 	//因为Data是弱指针所以需要使用，get进行得到，因为语法中要取值，所以得到指针后要进行解引用
 }
 
+void AAuraEffectActor::OnOverlap(AActor* TargetActor)
+{
+	if (InstantEffectApplicationPolicy==EEffectApplicationPolicy::ApplyOnOverlap)
+	{
+		ApplyEffectToTarget(TargetActor,InstantGameplayEffectClass);
+	}
+	if (DurationEffectApplicationPolicy==EEffectApplicationPolicy::ApplyOnOverlap)
+	{
+		ApplyEffectToTarget(TargetActor,DurationGameplayEffectClass);
+	}
+}
+
+void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)
+{
+
+	if (InstantEffectApplicationPolicy==EEffectApplicationPolicy::ApplyOnEndOverlap)
+	{
+		ApplyEffectToTarget(TargetActor,InstantGameplayEffectClass);
+	}
+	
+	if (DurationEffectApplicationPolicy==EEffectApplicationPolicy::ApplyOnEndOverlap)
+	{
+		ApplyEffectToTarget(TargetActor,DurationGameplayEffectClass);
+	}
+}
+
 
 
 
