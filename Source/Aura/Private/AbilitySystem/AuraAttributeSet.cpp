@@ -1,7 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "AbilitySystem/AuraAttributeSet.h"
+
+#include "GameplayEffectExtension.h"
 #include "AbilitySystem/AuraabilitySystemComponent.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/Pawn.h"
 #include "Net/UnrealNetwork.h"
 
 
@@ -42,6 +46,60 @@ void UAuraAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 	}
 
 }
+
+void UAuraAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
+
+	FEffectProperties Props;
+	SetEffectProperties(Data, Props);
+
+	// Use Props here for damage, knockback, floating combat text, death checks, etc.
+}
+
+void UAuraAttributeSet::SetEffectProperties(
+	const FGameplayEffectModCallbackData& Data,
+	FEffectProperties& Props) const
+{
+	Props = FEffectProperties{};
+
+	Props.EffectContextHandle = Data.EffectSpec.GetContext();
+	Props.SourceASC =
+		Props.EffectContextHandle.GetOriginalInstigatorAbilitySystemComponent();
+
+	if (IsValid(Props.SourceASC))
+	{
+		Props.SourceAvatarActor = Props.SourceASC->GetAvatarActor();
+	}
+
+	if (IsValid(Props.SourceAvatarActor))
+	{
+		Props.SourceCharacter =
+			Cast<ACharacter>(Props.SourceAvatarActor);
+
+		if (const APawn* SourcePawn =
+			Cast<APawn>(Props.SourceAvatarActor))
+		{
+			Props.SourceController = SourcePawn->GetController();
+		}
+	}
+
+	Props.TargetASC = &Data.Target;
+	Props.TargetAvatarActor = Props.TargetASC->GetAvatarActor();
+
+	if (IsValid(Props.TargetAvatarActor))
+	{
+		Props.TargetCharacter =
+			Cast<ACharacter>(Props.TargetAvatarActor);
+
+		if (const APawn* TargetPawn =
+			Cast<APawn>(Props.TargetAvatarActor))
+		{
+			Props.TargetController = TargetPawn->GetController();
+		}
+	}
+}
+
 void UAuraAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth)const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet,Health,OldHealth);
