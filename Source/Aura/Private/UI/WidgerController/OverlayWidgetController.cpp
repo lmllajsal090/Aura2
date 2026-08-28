@@ -37,13 +37,27 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
                 	{
                 		for (const FGameplayTag& Tag : AssetTags)
                 		{
-                			const FString Msg=FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());
-                			GEngine->AddOnScreenDebugMessage(-1, 8.f,FColor::Blue, Msg);
+							// For example, say that Tag = Message.HealthPotion
+							// "Message.HealthPotion".MatchesTag("Message") will return True, "Message".MatchesTag("Message.HealthPotion") will return False
+							FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+							if (Tag.MatchesTag(MessageTag))
+							{
+								const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
 
-                			FUIWidgetRow * Row=GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable,Tag);
+								if (Row == nullptr)
+								{
+									UE_LOG(LogTemp, Error, TEXT("Message row not found: %s"), *Tag.ToString());
+									continue;
+								}
+								
+								UE_LOG(LogTemp, Warning, TEXT("Broadcast UI message: %s"), *Row->Message.ToString());
 
-                		}
-                	}	
+
+								MessageWidgetRowDelegate.Broadcast(*Row);
+							}
+						}
+						
+                	}
                 	);
 }
 
