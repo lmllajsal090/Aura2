@@ -23,6 +23,5 @@ public:
 
 	FEffectAppliedDelegate EffectAssetTags;
 protected:
-	
 	void EffectApplied( UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveHandle );
 };
