@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
+#include "GameplayTagContainer.h"
 
 /**
  * 
@@ -11,10 +12,11 @@
 struct FAuraGameplayTags{
 
 public:
+	FGameplayTag Attributes_Secondary_Armor;
 	
 	const static FAuraGameplayTags& Get(){return GameplayTags;}
 	static void InitializeNativeGameplayTags();
 private:
-	const static FAuraGameplayTags GameplayTags;
+	static FAuraGameplayTags GameplayTags;
 };
 
