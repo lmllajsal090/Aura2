@@ -2,10 +2,11 @@
 
 
 #include "AbilitySystem/AuraabilitySystemComponent.h"
+#include "GameplayTagContainer.h" 
 
 void UAuraabilitySystemComponent::AbilityActorInfoSet()
 {
-	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraabilitySystemComponent::EffectApplied);
+
 }
 
 void UAuraabilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
@@ -15,4 +16,6 @@ void UAuraabilitySystemComponent::EffectApplied(UAbilitySystemComponent* Ability
 	EffectSpec.GetAllAssetTags(TagContainer);
 	
 	EffectAssetTags.Broadcast(TagContainer);
+	
+	
 }

@@ -19,5 +19,5 @@ void UAuraWidgetController::BroadcastInitiaValue()
 
 void UAuraWidgetController::BindCallbacksToDependencies()
 {
-	
+
 }
