@@ -8,8 +8,9 @@ Plugins/*/Binaries/
 Plugins/*/Intermediate/
 Plugins/*/Saved/
 Content/Backup/
-*.uasset
-*.umap
+Content/Assets/
+Content/Developers/
+Content/Collections/
 
 # Rider / Visual Studio 忽略项
 .vs/
