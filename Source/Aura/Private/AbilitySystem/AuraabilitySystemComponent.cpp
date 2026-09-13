@@ -4,9 +4,13 @@
 #include "AbilitySystem/AuraabilitySystemComponent.h"
 #include "GameplayTagContainer.h" 
 
-void UAuraabilitySystemComponent::AbilityActorInfoSet()
+void UAuraabilitySystemComponent::AbilityActorInfoSet() 
 {
 
+	OnGameplayEffectAppliedDelegateToSelf.AddUObject(
+        this,
+        &UAuraabilitySystemComponent::EffectApplied
+    );
 }
 
 void UAuraabilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
