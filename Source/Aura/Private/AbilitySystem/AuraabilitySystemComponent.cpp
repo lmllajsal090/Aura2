@@ -13,6 +13,17 @@ void UAuraabilitySystemComponent::AbilityActorInfoSet()
     );
 }
 
+void UAuraabilitySystemComponent::AddCharacterAbilities(
+	const TArray<TSubclassOf<UGameplayAbility>>& StartupGameplayAbilities)
+{
+	for (TSubclassOf<UGameplayAbility> Ability : StartupGameplayAbilities)
+	{
+	
+		FGameplayAbilitySpec Spec=FGameplayAbilitySpec(Ability,1);
+		GiveAbilityAndActivateOnce(Spec);
+	}
+}
+
 void UAuraabilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
                                                 const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveHandle)
 {
