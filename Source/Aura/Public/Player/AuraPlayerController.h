@@ -10,11 +10,11 @@
 class UInputMappingContext;
 class UInputAction;
 class IEnemyInterface; 
-
+class UAuraabilitySystemComponent;
 struct FInputActionValue;
 
 /**
- * 
+ *
  */
 UCLASS()
 class AURA_API AAuraPlayerController : public APlayerController
@@ -50,4 +50,9 @@ private:
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);
 	void AbilityInputTagHeld(FGameplayTag InputTag);
+	
+	UPROPERTY()
+	TObjectPtr<UAuraabilitySystemComponent> AbilitySystemComponent;
+	
+	UAuraabilitySystemComponent* GetASC();
 };

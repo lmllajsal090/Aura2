@@ -2,8 +2,12 @@
 
 
 #include "Player/AuraPlayerController.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "AbilitySystem/AuraabilitySystemComponent.h"
+#include "AbilitySystem/ModMagCalc/AuraAbilitySystemLibrary.h"
 #include "Input/AuraInputComponent.h"
 #include "Interaction/EnemyInterface.h"
 
@@ -141,11 +145,22 @@ void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 
 void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
-	
+	if (GetASC()==nullptr)return;
+	GetASC()->AbilityInputTagReleased(InputTag);
 }
 
 void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
-	
+	if (GetASC()==nullptr)return;
+	GetASC()->AbilityInputTagHeld(InputTag);
+}
+
+UAuraabilitySystemComponent* AAuraPlayerController::GetASC()
+{
+	if (AbilitySystemComponent==nullptr)
+	{
+		AbilitySystemComponent=Cast<UAuraabilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
+	}
+	return AbilitySystemComponent;
 }
 
