@@ -17,12 +17,12 @@ class AURA_API UAuraInputComponent : public UEnhancedInputComponent
 	
 public:
 	template<class UserClass,typename PressedFuncType,typename ReleasedFuncType,typename HeldFuncType>
-	void BindAbilityActions(UAuraInputConfig* InputConfig, UserClass* UserObject, PressedFuncType PressedFunc,ReleasedFuncType ReleasedFunc, HeldFuncType HeldFunc);
+	void  BindAbilityActions(UAuraInputConfig* InputConfig, UserClass* UserObject, PressedFuncType PressedFunc,ReleasedFuncType ReleasedFunc, HeldFuncType HeldFunc);
 
 };
 
 template<class UserClass,typename PressedFuncType,typename ReleasedFuncType,typename HeldFuncType>
-	void BindAbilityActions(UAuraInputConfig* InputConfig, UserClass* UserObject, PressedFuncType PressedFunc,
+	void UAuraInputComponent::BindAbilityActions(UAuraInputConfig* InputConfig, UserClass* UserObject, PressedFuncType PressedFunc,
 							ReleasedFuncType ReleasedFunc, HeldFuncType HeldFunc)
 {
 	check(InputConfig);

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Input/AuraInputComponent.h"
 #include "AuraPlayerController.generated.h"
 
 class UInputMappingContext;
@@ -24,6 +25,10 @@ public:
 	AAuraPlayerController();
 	
 	virtual void PlayerTick(float DeltaTime) override;
+	
+
+	
+	
 protected:
 	virtual  void BeginPlay() override;
 	virtual void SetupInputComponent() override;
@@ -38,4 +43,11 @@ private:
 	void CursorTrace();
 	TWeakObjectPtr<AActor> LastActor;
 	TWeakObjectPtr<AActor> ThisActor;
+	
+	UPROPERTY(EditDefaultsOnly,Category="Input")
+	TObjectPtr<UAuraInputConfig>InputConfig;
+	
+	void AbilityInputTagPressed(FGameplayTag InputTag);
+	void AbilityInputTagReleased(FGameplayTag InputTag);
+	void AbilityInputTagHeld(FGameplayTag InputTag);
 };
