@@ -46,9 +46,9 @@ void AAuraCharacter::InitAbilityActorInfo()
 {
 	AAuraPlayerState* AuraPlayerState=GetPlayerState<AAuraPlayerState>();
 	check(AuraPlayerState);
-	AuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(AuraPlayerState,this);
-	Cast<UAuraabilitySystemComponent>(AuraPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
 	AbilitySystemComponent=AuraPlayerState->GetAbilitySystemComponent();
+	AbilitySystemComponent->InitAbilityActorInfo(AuraPlayerState,this);
+	Cast<UAuraabilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 	AttributeSet=AuraPlayerState->GetAttributeSet();
 	
 	//进行这个if判断是因为只有在本地客户端才能get到Controller

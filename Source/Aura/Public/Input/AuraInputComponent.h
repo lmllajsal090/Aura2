@@ -41,9 +41,9 @@ template<class UserClass,typename PressedFuncType,typename ReleasedFuncType,type
 				BindAction(Action.InputAction,ETriggerEvent::Completed,UserObject,ReleasedFunc,Action.InputTag);
 			}
 			
-			if (PressedFunc)
+			if (HeldFunc)
 			{
-				BindAction(Action.InputAction,ETriggerEvent::Triggered,UserObject,PressedFunc,Action.InputTag);
+				BindAction(Action.InputAction,ETriggerEvent::Triggered,UserObject,HeldFunc,Action.InputTag);
 			}
 		}
 	}

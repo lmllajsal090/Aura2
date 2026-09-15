@@ -56,8 +56,10 @@ void UAuraabilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& In
 	if (!InputTag.IsValid()) return;
 	for (auto& AbilitySpec:GetActivatableAbilities())
 	{
-		
-		AbilitySpecInputReleased(AbilitySpec);
+		if (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag))
+		{
+			AbilitySpecInputReleased(AbilitySpec);
+		}
 	}
 }
 

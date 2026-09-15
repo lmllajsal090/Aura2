@@ -4,10 +4,12 @@
 #include "Player/AuraPlayerController.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
+#include "AuraGameplayTags.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "AbilitySystem/AuraabilitySystemComponent.h"
 #include "AbilitySystem/ModMagCalc/AuraAbilitySystemLibrary.h"
+#include "Components/SplineComponent.h"
 #include "Input/AuraInputComponent.h"
 #include "Interaction/EnemyInterface.h"
 
@@ -15,6 +17,7 @@ AAuraPlayerController::AAuraPlayerController()
 {
 	bReplicates= true;
 	
+	Spline=CreateDefaultSubobject<USplineComponent>(TEXT("Spline"));
 }
 
 void AAuraPlayerController::PlayerTick(float DeltaTime)
@@ -96,7 +99,10 @@ void AAuraPlayerController::CursorTrace()
 	}
 
 	LastActor = ThisActor;
-	ThisActor = CursorHit.GetActor();
+	
+	AActor* HitActor = CursorHit.GetActor();
+
+	ThisActor =IsValid(HitActor) && HitActor->Implements<UEnemyInterface>()? HitActor: nullptr;
 
 	if (LastActor == nullptr)
 	{
@@ -141,6 +147,13 @@ void AAuraPlayerController::CursorTrace()
 
 void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
+	
+	if (InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB))
+	{
+		bAutoRunning=false;
+		bTargeting=ThisActor.IsValid();
+	}
+	
 }
 
 void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
@@ -151,8 +164,40 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 
 void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
-	if (GetASC()==nullptr)return;
-	GetASC()->AbilityInputTagHeld(InputTag);
+	if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB))
+	{
+		
+		if (GetASC())
+		{
+			GetASC()->AbilityInputTagHeld(InputTag);
+		}
+		return;
+	}
+	
+	if (bTargeting)
+	{
+		if (GetASC())
+		{
+			GetASC()->AbilityInputTagHeld(InputTag);
+		}
+		return;
+	}
+	else
+	{
+		FollowTime+=GetWorld()->GetDeltaSeconds();
+		
+		FHitResult Hit;
+		if (GetHitResultUnderCursor(ECC_Visibility,false,Hit))
+		{
+			CatchDestination=Hit.ImpactPoint;
+		}
+		
+		if (APawn* ControlledPawn=GetPawn())
+		{
+			const FVector WorldDirection=(CatchDestination-ControlledPawn->GetActorLocation()).GetSafeNormal();
+			ControlledPawn->AddMovementInput(WorldDirection);
+		}
+	}
 }
 
 UAuraabilitySystemComponent* AAuraPlayerController::GetASC()
