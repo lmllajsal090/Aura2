@@ -25,8 +25,37 @@ AAuraPlayerController::AAuraPlayerController()
 void AAuraPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
+	if (!IsLocalController()) return;
 	
 	CursorTrace();
+	AutoRun();
+}
+
+void AAuraPlayerController::AutoRun()
+{
+	if (!bAutoRunning || !IsValid(Spline) || Spline->GetNumberOfSplinePoints() < 2)
+	{
+		bAutoRunning = false;
+		return;
+	}
+	
+	APawn* ControlledPawn = GetPawn();
+	if (!ControlledPawn)
+	{
+		bAutoRunning = false;
+		return;
+	}
+	
+	const FVector LocationOnSpline = Spline->FindLocationClosestToWorldLocation(
+		ControlledPawn->GetActorLocation(), ESplineCoordinateSpace::World);
+	const FVector Direction = Spline->FindDirectionClosestToWorldLocation(
+		LocationOnSpline, ESplineCoordinateSpace::World);
+	ControlledPawn->AddMovementInput(Direction);
+	
+	if (FVector::Dist(LocationOnSpline, CatchDestination) <= AutoRunAcceptanceRadius)
+	{
+		bAutoRunning = false;
+	}
 }
 
 void AAuraPlayerController::BeginPlay()
@@ -179,18 +208,30 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 		return;
 	}else
 	{
-		APawn* ControlledPawn=GetPawn();
-		if (FollowTime<=ShortPressThreshold&&ControlledPawn)
+		APawn* ControlledPawn = GetPawn();
+		if (FollowTime <= ShortPressThreshold && ControlledPawn)
 		{
-			if (UNavigationPath* NavPath=UNavigationSystemV1::FindPathToLocationSynchronously(this,ControlledPawn->GetActorLocation(),CatchDestination))
+			UWorld* World = GetWorld();
+			UNavigationPath* NavPath = World
+				? UNavigationSystemV1::FindPathToLocationSynchronously(
+					World, ControlledPawn->GetActorLocation(), CatchDestination, ControlledPawn)
+				: nullptr;
+			
+			if (IsValid(NavPath) && NavPath->IsValid() && NavPath->PathPoints.Num() > 1)
 			{
 				Spline->ClearSplinePoints();
-				for (const FVector& PointLoc:NavPath->PathPoints)
+				for (const FVector& PointLoc : NavPath->PathPoints)
 				{
-					Spline->AddSplinePoint(PointLoc,ESplineCoordinateSpace::World);
-					DrawDebugSphere(GetWorld(),PointLoc,10.f,8,FColor::Green,false,5.f);
+					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
+					DrawDebugSphere(World, PointLoc, 10.f, 8, FColor::Green, false, 5.f);
 				}
-				bAutoRunning=true;
+				CatchDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
+				bAutoRunning = true;
+			}
+			else
+			{
+				bAutoRunning = false;
+				UE_LOG(LogTemp, Warning, TEXT("[AutoRun] No valid navigation path on %s"), *GetNameSafe(this));
 			}
 		}
 		FollowTime=0.f;
@@ -244,4 +285,3 @@ UAuraabilitySystemComponent* AAuraPlayerController::GetASC()
 	}
 	return AbilitySystemComponent;
 }
-
