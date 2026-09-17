@@ -113,9 +113,8 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 
 void AAuraPlayerController::CursorTrace()
 {
-	FHitResult CursorHit;
 	GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, CursorHit);
-	if (!CursorHit.bBlockingHit)
+	if (!CursorHit.bBlockingHit)//无的时候
 	{
 		if (LastActor != nullptr)
 		{
@@ -135,43 +134,21 @@ void AAuraPlayerController::CursorTrace()
 
 	ThisActor =IsValid(HitActor) && HitActor->Implements<UEnemyInterface>()? HitActor: nullptr;
 
-	if (LastActor == nullptr)
+	if (LastActor != ThisActor)
 	{
-		if (ThisActor != nullptr)
+		if (LastActor.IsValid())
 		{
-			// Case B
-			if (IEnemyInterface* Enemy = Cast<IEnemyInterface>(ThisActor.Get()))
-			{
-				Enemy->HighlightActor();
-			}
-		}
-		// Case A 两者都空，无操作
-	}
-	else
-	{
-		if (ThisActor == nullptr)
-		{
-			// Case C
 			if (IEnemyInterface* Enemy = Cast<IEnemyInterface>(LastActor.Get()))
 			{
 				Enemy->UnHighlightActor();
 			}
 		}
-		else
+		if (ThisActor.IsValid())
 		{
-			if (LastActor != ThisActor)
+			if (IEnemyInterface* Enemy = Cast<IEnemyInterface>(ThisActor.Get()))
 			{
-				// Case D
-				if (IEnemyInterface* Enemy = Cast<IEnemyInterface>(LastActor.Get()))
-				{
-					Enemy->UnHighlightActor();
-				}
-				if (IEnemyInterface* Enemy = Cast<IEnemyInterface>(ThisActor.Get()))
-				{
-					Enemy->HighlightActor();
-				}
+				Enemy->HighlightActor();
 			}
-			// Case E 同一物体，无操作
 		}
 	}
 }
@@ -192,19 +169,13 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB))
 	{
 		
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagReleased(InputTag);
-		}
+		if (GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
 		return;
 	}
 	
 	if (bTargeting)
 	{
-		if (GetASC())
-		{
-			GetASC()->AbilityInputTagReleased(InputTag);
-		}
+		if (GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
 		return;
 	}else
 	{
@@ -223,7 +194,6 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 				for (const FVector& PointLoc : NavPath->PathPoints)
 				{
 					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
-					DrawDebugSphere(World, PointLoc, 10.f, 8, FColor::Green, false, 5.f);
 				}
 				CatchDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
 				bAutoRunning = true;
@@ -263,10 +233,10 @@ void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	{
 		FollowTime+=GetWorld()->GetDeltaSeconds();
 		
-		FHitResult Hit;
-		if (GetHitResultUnderCursor(ECC_Visibility,false,Hit))
+	
+		if (CursorHit.bBlockingHit)
 		{
-			CatchDestination=Hit.ImpactPoint;
+			CatchDestination=CursorHit.ImpactPoint;
 		}
 		
 		if (APawn* ControlledPawn=GetPawn())

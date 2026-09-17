@@ -44,6 +44,7 @@ private:
 	void CursorTrace();
 	TWeakObjectPtr<AActor> LastActor;
 	TWeakObjectPtr<AActor> ThisActor;
+	FHitResult CursorHit;
 	
 	UPROPERTY(EditDefaultsOnly,Category="Input")
 	TObjectPtr<UAuraInputConfig>InputConfig;
