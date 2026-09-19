@@ -19,4 +19,5 @@ void UAuraAssetManager::StartInitialLoading()
 	FAuraGameplayTags::InitializeNativeGameplayTags();
 	
 	const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();
+	//UAbilitySystemGlobals::Get().InitGlobalData();
 }
