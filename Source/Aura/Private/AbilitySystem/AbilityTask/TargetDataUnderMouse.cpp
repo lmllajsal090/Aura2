@@ -30,16 +30,7 @@ void UTargetDataUnderMouse::Activate()
 			SetWaitingOnRemotePlayerData();
 		}
 	}
-
-	FHitResult CursorHit;
-	APlayerController* PlayerController = ActorInfo->PlayerController.Get();
-	PlayerController->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, CursorHit);
-	 FGameplayAbilityTargetData_SingleTargetHit* Data =new FGameplayAbilityTargetData_SingleTargetHit();
-	 Data->HitResult = CursorHit;
-	 FGameplayAbilityTargetDataHandle DataHandle;
-	 DataHandle.Add(Data);
 	
-	 ValidData.Broadcast(DataHandle);
 }
 
 void UTargetDataUnderMouse::SendMouseCursorData()

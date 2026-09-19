@@ -40,6 +40,9 @@ private:
 	UPROPERTY(EditAnywhere,Category="Input")
 	TObjectPtr<UInputAction> MoveAction;
 	
+	UPROPERTY(EditAnywhere,Category="Input")
+	TObjectPtr<UInputAction> ShiftAction;
+	
 	void Move(const FInputActionValue& InputActionValue);
 	void CursorTrace();
 	TWeakObjectPtr<AActor> LastActor;
@@ -52,7 +55,10 @@ private:
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);
 	void AbilityInputTagHeld(FGameplayTag InputTag);
+	void ShiftPressed(){bShiftPressed=true;};
+	void ShiftReleased(){bShiftPressed=false;};
 	
+	bool bShiftPressed = false;
 	UPROPERTY()
 	TObjectPtr<UAuraabilitySystemComponent> AbilitySystemComponent;
 	

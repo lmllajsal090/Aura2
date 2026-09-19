@@ -10,6 +10,7 @@
 #include "Player/AuraPlayerState.h"
 #include "UI/HUD/AuraHUD.h"
 
+
 AAuraCharacter::AAuraCharacter()
 {
 	GetCharacterMovement()->bOrientRotationToMovement = true;
@@ -41,6 +42,7 @@ int32 AAuraCharacter::GetPlayerLevel()
 	check(AuraPlayerState);
 	return AuraPlayerState->GetPlayerLevel();
 }
+
 
 void AAuraCharacter::InitAbilityActorInfo()
 {
