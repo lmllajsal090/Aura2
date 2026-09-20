@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/Ability/AuraGameplayAbility.h"
 #include "Actor/AuraProjectile.h"
 #include "AuraProjectileSpell.generated.h"
@@ -18,8 +19,11 @@ protected:
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 	
 	UFUNCTION(BlueprintCallable,Category="Projectile")
-	void SpwanProjectile(const FVector& ProjectileTargetLocation);
+	void SpawnProjectile(const FVector& ProjectileTargetLocation);
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	TSubclassOf<AAuraProjectile>ProjectileClass;
+	
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UGameplayEffect>DamageEffectClass;
 };

@@ -3,6 +3,7 @@
 
 #include "AbilitySystem/Ability/AuraProjectileSpell.h"
 
+#include "AbilitySystemComponent.h"
 #include "Actor/AuraProjectile.h"
 #include "Interaction/CombatInterface.h"
 
@@ -14,7 +15,7 @@ void UAuraProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 	
 }
 
-void UAuraProjectileSpell::SpwanProjectile(const FVector& ProjectileTargetLocation)
+void UAuraProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocation)
 {
 	const bool bIsServer =GetAvatarActorFromActorInfo()->HasAuthority();
     	if (!bIsServer)return;
@@ -36,7 +37,11 @@ void UAuraProjectileSpell::SpwanProjectile(const FVector& ProjectileTargetLocati
     			GetOwningActorFromActorInfo(),
     			Cast<APawn>(GetOwningActorFromActorInfo()),
     			ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-    		//TODD:Set the Damage Spec
+    		
+    		const UAbilitySystemComponent* SourceASC=UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo());
+    		const FGameplayEffectSpecHandle SpecHandle=SourceASC->MakeOutgoingSpec(DamageEffectClass,GetAbilityLevel(),SourceASC->MakeEffectContext());
+    		Projectile->DamageEffectSpecHandle=SpecHandle;
+    		
     		Projectile->FinishSpawning(SpawnTransform);
     	}
 }

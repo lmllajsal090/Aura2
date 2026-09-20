@@ -3,9 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayEffectTypes.h"
 #include "GameFramework/Actor.h"
 #include "AuraProjectile.generated.h"
 
+class UNiagaraSystem;
+class USoundBase;
 class USphereComponent;
 class UProjectileMovementComponent;
 UCLASS()
@@ -18,6 +21,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
+	
+	UPROPERTY(BlueprintReadWrite,meta=(ExposeOnSpawn=true))
+	FGameplayEffectSpecHandle DamageEffectSpecHandle;
 protected:
 	virtual void BeginPlay() override;
 
@@ -28,5 +34,21 @@ protected:
 	virtual void OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UNiagaraSystem>ImpactEffect;
+	
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USoundBase>ImpactSound;
 
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USoundBase>LoopingSound;
+	bool bHit=false;
+	
+	UPROPERTY()
+	TObjectPtr<UAudioComponent>LoopingAudioComponent;
+	
+	virtual void Destroyed() override;
+	
+	UPROPERTY(EditAnywhere)
+	float LifeSpan;
 };
