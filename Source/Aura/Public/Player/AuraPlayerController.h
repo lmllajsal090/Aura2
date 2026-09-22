@@ -59,6 +59,7 @@ private:
 	void ShiftReleased(){bShiftPressed=false;};
 	
 	bool bShiftPressed = false;
+	
 	UPROPERTY()
 	TObjectPtr<UAuraabilitySystemComponent> AbilitySystemComponent;
 	

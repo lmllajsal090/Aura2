@@ -31,7 +31,11 @@ public:
 	FEffectAppliedDelegate EffectAssetTags;
 protected:
 	UFUNCTION(Client,Reliable)
-	void ClientEffectApplied( UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveHandle );
+	void ClientEffectApplied( 
+		UAbilitySystemComponent* AbilitySystemComponent, 
+		const FGameplayEffectSpec& EffectSpec, 
+		FActiveGameplayEffectHandle ActiveHandle
+		);
 	
 
 };
