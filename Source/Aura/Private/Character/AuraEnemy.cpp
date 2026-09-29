@@ -5,6 +5,7 @@
 
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "AbilitySystem/AuraabilitySystemComponent.h"
+#include "AbilitySystem/ModMagCalc/AuraAbilitySystemLibrary.h"
 #include "Aura/Aura.h"
 #include "Components/WidgetComponent.h"
 #include "UI/Widgets/AuraUserWidget.h"
@@ -80,4 +81,9 @@ void AAuraEnemy::InitAbilityActorInfo()
 	Cast<UAuraabilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 	
 	InitializeDeafultAttributes();
+}
+
+void AAuraEnemy::InitializeDeafultAttributes() const
+{
+	UAuraAbilitySystemLibrary::InitializeDefaultAttributes(this,CharacterClass,Level,AbilitySystemComponent);
 }

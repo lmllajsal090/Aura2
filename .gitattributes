@@ -1,2 +1,4 @@
 *.uasset filter=lfs diff=lfs merge=lfs -text
 *.umap filter=lfs diff=lfs merge=lfs -text
+Source/Aura/Private/AbilitySystem/ModMagCalc/AuraAbilitySystemLibrary.cpp text eol=lf
+Source/Aura/Public/AbilitySystem/ModMagCalc/AuraAbilitySystemLibrary.h text eol=lf

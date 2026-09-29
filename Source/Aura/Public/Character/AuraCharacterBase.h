@@ -51,7 +51,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly,EditAnywhere,Category="Attributes")
 	TSubclassOf<UGameplayEffect>DefaultVitalAttributes;
 	
-	void InitializeDeafultAttributes() const;
+	virtual void InitializeDeafultAttributes() const;
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect>GameplayEffectClass,float level)const;
 	
 	void AddCharacterAbilities();

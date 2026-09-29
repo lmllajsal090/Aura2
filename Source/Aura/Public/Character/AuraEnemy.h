@@ -6,6 +6,7 @@
 #include "Character/AuraCharacterBase.h"
 #include "Interaction/EnemyInterface.h"
 #include "UI/WidgerController/OverlayWidgetController.h"
+#include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "AuraEnemy.generated.h"
 
 class UWidgetComponent;
@@ -36,11 +37,13 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual  void InitAbilityActorInfo() override;
+	virtual void InitializeDeafultAttributes() const override;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Character Class Deafults")
 	int32 Level=1;
 	
-	
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Character Class Deafults")
+	ECharacterClass CharacterClass=ECharacterClass::Warrior;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	TObjectPtr<UWidgetComponent> HealthBar;
