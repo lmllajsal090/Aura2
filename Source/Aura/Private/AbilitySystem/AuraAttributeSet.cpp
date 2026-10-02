@@ -98,7 +98,17 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 	{
 		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
 	}
-	// Use Props here for damage, knockback, floating combat text, death checks, etc.
+	if (Data.EvaluatedData.Attribute==GetInComingDamageAttribute())
+	{
+		const float LocalIncomingDamage = GetInComingDamage();
+		SetInComingDamage(0.f);
+		if (LocalIncomingDamage>0.f)
+		{
+			const float NewHealth = GetHealth() - LocalIncomingDamage;
+			SetHealth(FMath::Clamp(NewHealth,0.f,GetMaxHealth()));
+			const bool bFatal = GetHealth() <= 0.f;
+		}
+	}
 }
 
 void UAuraAttributeSet::SetEffectProperties(
