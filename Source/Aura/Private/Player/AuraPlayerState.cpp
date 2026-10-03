@@ -9,7 +9,7 @@
 
 AAuraPlayerState::AAuraPlayerState()
 {
-	NetUpdateFrequency =100.f;
+	SetNetUpdateFrequency(100.f);
 	
 	AbilitySystemComponent=CreateDefaultSubobject<UAuraabilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);

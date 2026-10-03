@@ -17,6 +17,7 @@ Content/Collections/
 .vscode/
 .idea/
 *.sln
+*.slnx
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
