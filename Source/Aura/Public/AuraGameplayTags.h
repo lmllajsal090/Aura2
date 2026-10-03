@@ -36,6 +36,7 @@ public:
 	FGameplayTag InputTag_4;
 	
 	FGameplayTag Damage;
+	FGameplayTag Effects_HitDamage	;
 	
 	const static FAuraGameplayTags& Get(){return GameplayTags;}
 	static void InitializeNativeGameplayTags();
