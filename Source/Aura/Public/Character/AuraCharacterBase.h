@@ -26,6 +26,7 @@ public:
 	UAttributeSet* GetAttributeSet() const;
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -61,6 +62,11 @@ protected:
 	
 	UPROPERTY(EditAnywhere,Category="Abilities")
 	TObjectPtr<UAnimMontage>HitReactMontage;
+	
+	virtual void Die() override;
+	
+	UFUNCTION(NetMulticast,Reliable)
+	virtual void MulticastHandleDeath();
 private:
 	UPROPERTY(EditAnywhere, Category = "Abilities")
 	TArray<TSubclassOf<UGameplayAbility>>StartupGameplayAbilities;
