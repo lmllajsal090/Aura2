@@ -32,6 +32,8 @@ void AAuraPlayerController::PlayerTick(float DeltaTime)
 	AutoRun();
 }
 
+
+
 void AAuraPlayerController::ShowDamageNumber_Implementation(float DamageAmount,ACharacter* TargetCharacter)
 {
 	if (IsValid(TargetCharacter)&&DamageTextComponentClass)
