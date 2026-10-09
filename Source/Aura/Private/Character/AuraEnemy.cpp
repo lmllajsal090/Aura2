@@ -6,7 +6,7 @@
 #include "AuraGameplayTags.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "AbilitySystem/AuraabilitySystemComponent.h"
-#include "AbilitySystem/ModMagCalc/AuraAbilitySystemLibrary.h"
+#include "AbilitySystem/AuraAbilitySystemLibrary.h"
 #include "Aura/Aura.h"
 #include "AuraGameplayTags.h"
 #include "Components/WidgetComponent.h"
