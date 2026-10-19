@@ -4,22 +4,22 @@
 #include "AuraAbilityTypes.generated.h"
 
 USTRUCT(BlueprintType)
-struct FAuraGameplayEffectSpec:public FGameplayEffectContext
+struct FAuraGameplayEffectContext:public FGameplayEffectContext
 {
 	GENERATED_BODY()
 	
 public:
 
 	/** Returns the actual struct used for serialization, subclasses must override this! */
-	virtual UScriptStruct* GetScriptStruct() const
+	virtual UScriptStruct* GetScriptStruct() const override
 	{
-		return FGameplayEffectContext::StaticStruct();
+		return StaticStruct();
 	}
 
 	/** Creates a copy of this context, used to duplicate for later modifications */
-	virtual FGameplayEffectContext* Duplicate() const
+	virtual FAuraGameplayEffectContext *Duplicate() const override
 	{
-		FGameplayEffectContext* NewContext = new FGameplayEffectContext();
+		FAuraGameplayEffectContext* NewContext = new FAuraGameplayEffectContext();
 		*NewContext = *this;
 		if (GetHitResult())
 		{
@@ -31,7 +31,7 @@ public:
 
 	
 	/** Custom serialization, subclasses must override this */
-	virtual bool NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess);
+	virtual bool NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess) override;
 protected:
 	
 	UPROPERTY()
@@ -39,4 +39,14 @@ protected:
 	
 	UPROPERTY()
 	bool bIsCriticalHit = false;
+};
+
+template<>
+struct TStructOpsTypeTraits<FAuraGameplayEffectContext> : public TStructOpsTypeTraitsBase2<FAuraGameplayEffectContext>
+{
+	enum
+	{
+		WithNetSerializer = true,
+		WithCopy = true
+	};
 };

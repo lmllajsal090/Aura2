@@ -104,3 +104,4 @@ bool FAuraGameplayEffectSpec::NetSerialize(FArchive& Ar, class UPackageMap* Map,
 	
 	return true;
 }
+
