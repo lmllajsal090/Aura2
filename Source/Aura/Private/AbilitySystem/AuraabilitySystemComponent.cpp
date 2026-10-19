@@ -19,14 +19,12 @@ void UAuraabilitySystemComponent::AddCharacterAbilities(
 {
 	for (const TSubclassOf<UGameplayAbility> Ability : StartupGameplayAbilities)
 	{
-		
 		FGameplayAbilitySpec Spec=FGameplayAbilitySpec(Ability,1);
 		if (const UAuraGameplayAbility* AuraAbility=Cast<UAuraGameplayAbility>(Spec.Ability))
 		{
 			Spec.GetDynamicSpecSourceTags().AddTag(AuraAbility->StartupInputTag);
 			GiveAbility(Spec);
 		}
-		
 	}
 }
 
