@@ -29,6 +29,11 @@ public:
 		return NewContext;
 	}
 
+	bool IsBlockedHit () const { return bIsBlockedHit; }
+	bool IsCriticalHit () const { return bIsCriticalHit; }
+	
+	void SetIsBlockedHit(bool bInIsBlockedHit) { bIsBlockedHit = bInIsBlockedHit; }
+	void SetIsCriticalHit(bool bInIsCriticalHit) { bIsCriticalHit = bInIsCriticalHit; }
 	
 	/** Custom serialization, subclasses must override this */
 	virtual bool NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess) override;
