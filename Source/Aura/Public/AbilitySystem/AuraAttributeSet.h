@@ -202,7 +202,7 @@ public:
 	UFUNCTION()
 	void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth)const;
 	
-	void ShowFloatingText(const FEffectProperties& Props,float Damage) const;
+	void ShowFloatingText(const FEffectProperties& Props,float Damage,bool bBlockedHit,bool bCriticalHit) const;
 };
 
 
