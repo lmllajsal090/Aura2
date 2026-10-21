@@ -38,9 +38,24 @@ public:
 	FGameplayTag Damage;
 	FGameplayTag Effects_HitDamage	;
 	
+	FGameplayTag Damage_Arcane;
+	FGameplayTag Damage_Fire;
+	FGameplayTag Damage_Lightning;
+	FGameplayTag Damage_Physical;
+	
+	FGameplayTag Attributes_Resistance_Fire;
+	FGameplayTag Attributes_Resistance_Lightning;
+	FGameplayTag Attributes_Resistance_Arcane;
+	FGameplayTag Attributes_Resistance_Physical;
+	
 	const static FAuraGameplayTags& Get(){return GameplayTags;}
 	static void InitializeNativeGameplayTags();
+	
+	
+	TMap<FGameplayTag, FGameplayTag>DamageTypesToResistances;
 private:
 	static FAuraGameplayTags GameplayTags;
+	
+
 };
 
