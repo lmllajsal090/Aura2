@@ -22,6 +22,11 @@ AAuraEnemy::AAuraEnemy()
 	AbilitySystemComponent=CreateDefaultSubobject<UAuraabilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
 	
+	bUseControllerRotationPitch=0;
+	bUseControllerRotationYaw=0;
+	bUseControllerRotationRoll=0;
+	GetCharacterMovement()->bUseControllerDesiredRotation = true;
+	
 	AttributeSet=CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");
 
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
