@@ -51,6 +51,7 @@ public:
 	const static FAuraGameplayTags& Get(){return GameplayTags;}
 	static void InitializeNativeGameplayTags();
 	
+	FGameplayTag Abilities_Attack;
 	
 	TMap<FGameplayTag, FGameplayTag>DamageTypesToResistances;
 private:

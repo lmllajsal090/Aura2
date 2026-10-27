@@ -23,6 +23,9 @@ struct FCharacterClassDefaultInfo
 	//因为首要属性可能每个角色不同所以放在结构体里
 	UPROPERTY(EditDefaultsOnly, Category = "Class Defaults")
 	TSubclassOf<UGameplayEffect> PrimaryAttributes;
+	
+	UPROPERTY(EditDefaultsOnly,Category="Class Deafults")
+	TArray<TSubclassOf<UGameplayAbility>>StartupAbilities;
 };
 
 /**
