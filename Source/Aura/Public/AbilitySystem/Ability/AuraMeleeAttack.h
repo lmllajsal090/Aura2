@@ -14,4 +14,11 @@ class AURA_API UAuraMeleeAttack : public UAuraDamageGameplayAbility
 {
 	GENERATED_BODY()
 	
+public:
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	TObjectPtr<UAnimMontage> Montage=nullptr;
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	FGameplayTag MontageTag;
 };
