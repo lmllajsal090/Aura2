@@ -49,6 +49,12 @@ public:
 	void HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount);
 	virtual int32 GetPlayerLevel() override;
 	virtual void Die() override;
+	
+	UPROPERTY(BlueprintReadWrite,Category="Combat")
+	TObjectPtr<AActor>CombatTarget;
+	
+	virtual void SetCombatTarget_Implementation(AActor* CombatTarget) override;
+	virtual AActor* GetCombatTarget_Implementation() const override;
 protected:
 	virtual void BeginPlay() override;
 	virtual  void InitAbilityActorInfo() override;
