@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayEffectTypes.h"
 #include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "UI/HUD/AuraHUD.h"
@@ -57,4 +58,7 @@ public:
 	static void SetIsCriticalHit(
 		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,bool bInIsCriticalHit
 	);
+	
+	UFUNCTION(BlueprintCallable,Category="AuraAbilitySystemLibrary|GameplayMechnics")
+	static void GetLivePlayerWithRadius(const UObject* WorldContextObject,TArray<AActor*>& OutOverlappingActors,const TArray<AActor*>& IgnoreActors,float Radius,const FVector& SphereLocation);
 };

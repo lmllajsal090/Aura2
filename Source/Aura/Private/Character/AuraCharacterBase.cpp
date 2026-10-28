@@ -53,6 +53,16 @@ FVector AAuraCharacterBase::GetCombatSocketLocation_Implementation()
 	return Weapon->GetSocketLocation(WeaponTipSocketName);
 }
 
+bool AAuraCharacterBase::IsDead_Implementation() const
+{
+	return bDead;
+}
+
+AActor* AAuraCharacterBase::GetAvatar_Implementation()
+{
+	return this;
+}
+
 void AAuraCharacterBase::InitAbilityActorInfo()
 {
 }
@@ -85,6 +95,7 @@ void AAuraCharacterBase::AddCharacterAbilities()
 
 void AAuraCharacterBase::Die()
 {
+
 	Weapon->DetachFromComponent(FDetachmentTransformRules(EDetachmentRule::KeepWorld,true));
 	MulticastHandleDeath();
 }
@@ -103,6 +114,7 @@ void AAuraCharacterBase::Dissolve()
 		Weapon->SetMaterial(0, DynamicMatInst);
 		StartWeaponDissolveTimeline(DynamicMatInst);
 	}
+	bDead=true;
 }
 
 void AAuraCharacterBase::MulticastHandleDeath_Implementation()
