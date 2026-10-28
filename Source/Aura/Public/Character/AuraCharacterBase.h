@@ -30,7 +30,13 @@ public:
 	virtual FVector GetCombatSocketLocation_Implementation() override;
 	virtual bool IsDead_Implementation() const override;
 	virtual AActor* GetAvatar_Implementation() override;
+	virtual TArray<FTaggedMontage>GetAttackMontages_Implementation() override;
 
+	UPROPERTY(EditAnywhere,Category="Combat")
+	TArray<FTaggedMontage>AttackMontages;
+	
+	UFUNCTION(NetMulticast,Reliable)
+	virtual void MulticastHandleDeath();
 protected:
 	bool bDead=false;
 	
@@ -67,9 +73,7 @@ protected:
 	
 	UPROPERTY(EditAnywhere,Category="Abilities")
 	TObjectPtr<UAnimMontage>HitReactMontage;
-	
-	UFUNCTION(NetMulticast,Reliable)
-	virtual void MulticastHandleDeath();
+
 	
 	/* Dissolve Effects */
 
