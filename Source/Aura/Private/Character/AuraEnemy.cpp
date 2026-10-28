@@ -126,6 +126,11 @@ void AAuraEnemy::HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCou
 {
 	bHitReacting=NewCount>0;
 	GetCharacterMovement()->MaxWalkSpeed=bHitReacting?0:BaseWalkSpeed;
+	if (AuraAIController&&AuraAIController->GetBlackboardComponent())
+	{
+		AuraAIController->GetBlackboardComponent()->SetValueAsBool(FName("HitReacting"),bHitReacting);
+	}
+	
 }
 
 void AAuraEnemy::InitAbilityActorInfo()
@@ -138,7 +143,7 @@ void AAuraEnemy::InitAbilityActorInfo()
 		InitializeDefaultAttributes();
 	}
 	
-	AuraAIController->GetBlackboardComponent()->SetValueAsBool(FName("HitReacting"),bHitReacting);
+	
 }
 
 void AAuraEnemy::InitializeDefaultAttributes() const
