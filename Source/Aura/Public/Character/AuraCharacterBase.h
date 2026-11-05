@@ -42,7 +42,7 @@ protected:
 	
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere,Category="Combvat")
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Combvat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
 
 	UPROPERTY(EditAnywhere,Category="Combvat")
