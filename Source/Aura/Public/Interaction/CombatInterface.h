@@ -31,6 +31,9 @@ struct FTaggedMontage
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	USoundBase* ImpatctSound = nullptr;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FGameplayTag CombatSocketTag;
 };
 
 class AURA_API ICombatInterface
@@ -63,4 +66,7 @@ public:
 	
 	UFUNCTION(BlueprintNativeEvent,BlueprintCallable)
 	UNiagaraSystem* GetBloodEffect();
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	FTaggedMontage GetTaggedMontageByTag(const FGameplayTag& MontageTag);
 };

@@ -48,14 +48,19 @@ public:
 	FGameplayTag Attributes_Resistance_Arcane;
 	FGameplayTag Attributes_Resistance_Physical;
 	
-	FGameplayTag Montage_Attack_Weapon;
-	FGameplayTag Montage_Attack_RightHand;
-	FGameplayTag Montage_Attack_LeftHand;
+	FGameplayTag CombatSocket_Weapon;
+	FGameplayTag CombatSocket_RightHand;
+	FGameplayTag CombatSocket_LeftHand;
 	
 	const static FAuraGameplayTags& Get(){return GameplayTags;}
 	static void InitializeNativeGameplayTags();
 	
 	FGameplayTag Abilities_Attack;
+	
+	FGameplayTag Montage_Attack_1;
+	FGameplayTag Montage_Attack_2;
+	FGameplayTag Montage_Attack_3;
+	FGameplayTag Montage_Attack_4;
 	
 	TMap<FGameplayTag, FGameplayTag>DamageTypesToResistances;
 private:
