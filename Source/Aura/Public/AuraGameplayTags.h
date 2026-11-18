@@ -51,6 +51,7 @@ public:
 	FGameplayTag CombatSocket_Weapon;
 	FGameplayTag CombatSocket_RightHand;
 	FGameplayTag CombatSocket_LeftHand;
+	FGameplayTag CombatSocket_Tail;
 	
 	const static FAuraGameplayTags& Get(){return GameplayTags;}
 	static void InitializeNativeGameplayTags();
