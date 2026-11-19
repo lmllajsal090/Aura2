@@ -57,6 +57,7 @@ public:
 	static void InitializeNativeGameplayTags();
 	
 	FGameplayTag Abilities_Attack;
+	FGameplayTag Abilities_Summon;
 	
 	FGameplayTag Montage_Attack_1;
 	FGameplayTag Montage_Attack_2;

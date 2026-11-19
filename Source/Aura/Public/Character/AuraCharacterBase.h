@@ -40,6 +40,8 @@ public:
 	
 	UFUNCTION(NetMulticast,Reliable)
 	virtual void MulticastHandleDeath();
+	
+	virtual int32 GetMinionCount_Implementation() override;
 
 protected:
 	bool bDead=false;
@@ -86,6 +88,8 @@ protected:
 	UPROPERTY(EditAnywhere,Category="Abilities")
 	TObjectPtr<UAnimMontage>HitReactMontage;
 
+	//Minions
+	int32 MinionCount = 0;
 	
 	/* Dissolve Effects */
 

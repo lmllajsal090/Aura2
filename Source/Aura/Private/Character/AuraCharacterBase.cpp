@@ -42,6 +42,11 @@ UAnimMontage* AAuraCharacterBase::GetHitReactMontage_Implementation()
 }
 
 
+int32 AAuraCharacterBase::GetMinionCount_Implementation()
+{
+	return MinionCount;
+}
+
 void AAuraCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
