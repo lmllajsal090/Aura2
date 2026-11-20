@@ -34,15 +34,16 @@ public:
 	virtual TArray<FTaggedMontage>GetAttackMontages_Implementation() override;
 	virtual UNiagaraSystem* GetBloodEffect_Implementation() override;
 	virtual FTaggedMontage GetTaggedMontageByTag_Implementation(const FGameplayTag& MontageTag) override;
-
+	virtual int32 GetMinionCount_Implementation() override;
+	virtual int32 IncrementMinionCount_Implementation(int32 Ammout) override;
+	
 	UPROPERTY(EditAnywhere,Category="Combat")
 	TArray<FTaggedMontage>AttackMontages;
 	
 	UFUNCTION(NetMulticast,Reliable)
 	virtual void MulticastHandleDeath();
 	
-	virtual int32 GetMinionCount_Implementation() override;
-
+	
 protected:
 	bool bDead=false;
 	

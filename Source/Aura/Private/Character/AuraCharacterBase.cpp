@@ -47,6 +47,11 @@ int32 AAuraCharacterBase::GetMinionCount_Implementation()
 	return MinionCount;
 }
 
+int32 AAuraCharacterBase::IncrementMinionCount_Implementation(int32 Ammout)
+{
+	return MinionCount+=Ammout;
+}
+
 void AAuraCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
