@@ -7,6 +7,7 @@
 ## 当前状态与下一步（Next Session Entry Point）
 
 - **当前阶段**：Phase 1 已收尾，准备启动 **Phase 2（M2.1 蓝耗/冷却 + M2.2 经验升级加点）**
+- **附加试验**：Gideon 主角换皮已接入并完成回退演练；完整死亡表现与多人战斗回归仍待验收，详见本页换皮记录。
 - **代码基线**：已完成教程第 19 章 + 安全 C++ 命名规范化（UE 5.8 UBT 编译通过）
 - **待讨论 / 下一步**：
   1. 在 UE 编辑器中打开地图跑一次 PIE 验证重命名零报错，并将 Phase 1 成果提交推送到 `origin`（`https://github.com/lmllajsal090/Aura2`）。
@@ -15,6 +16,26 @@
 ---
 
 ## 变更日志（Changelog）
+
+### 2026-11-24 — Gideon 非致命受击动画
+
+- 之前主角已配置 `AM_Gideon_HitReact`，但 `StartupGameplayAbilities` 只有火球。`PostGameplayEffectExecute` 在非致命伤害后以 `Effects.HitReact` 查找能力，未找到可激活的玩家受击能力。
+- `BP_Aura_Gideon` 现在启动时赋予 `GA_HitReact_Gideon`。该能力继承 `UAuraGameplayAbility`，由服务端激活，从 Avatar 的战斗接口取得 `AM_Gideon_HitReact`，通过 ASC 播放并同步给客户端。使用 Gideon 原生正面受击动作作为通用动作。
+- 受击和火球共用动画插槽。受击可打断火球，相关蒙太奇任务在完成、中断和取消时均结束技能。受击能力运行期间持有 `Effects.HitReact`，避免持续按住施法键时火球立即盖掉受击动作。动作结束后可继续施法。
+- 单人 PIE 用项目 `GE_Damage` 实测两次扣血均播放受击。验证了火球中断、受击期间阻止再施法及动作结束后可继续施法。双人 Listen Server 的服务端伤害和客户端受击播放均已验证。完整死亡表现仍待独立验收。
+
+### 2026-11-24 — Gideon 主角换皮试验（有完整备份，可回退）
+- 当前默认主角改为 `/Game/Reskin/Gideon/Character/BP_Aura_Gideon`，它继承原 `Bp_Aura_Character`。相机、MotionWarping、输入、PlayerState/ASC、属性初始化和 UI 沿用原框架；未修改 C++、项目配置或地图。
+- 新模型使用独立 Mesh 副本及 Mesh-only `WeaponHandSocket`，原 Aura 模型、蓝图、技能、骨架和 Paragon Gideon 原骨架保留。
+- `ABP_Aura_Gideon` 沿用 Aura 状态机与 DefaultSlot，待机/跑步使用 Gideon 原生动画副本。火球最终按用户要求使用 Aura 施法动画重定向后的 `AM_Cast_FireBolt_Gideon`；法杖可见，`CombatSocket.Weapon -> TipSocket` 为发射点，保留 `Event.Montage.FireBall`、FacingTarget 转向窗口与音效通知。
+- 配置了 Gideon 原生受击蒙太奇，但玩家启动能力仍只有火球，未额外增加原玩家没有的受击 GAS 能力。死亡布娃娃与溶解链路未改；完整死亡表现、脚步滑动及多人完整战斗回归仍待后续验收。
+- 修复了本次试验中旋转位置参数导致的侧躺：最终 Mesh Rotation 明确为 Pitch=0 / Yaw=-90 / Roll=0，PIE 站立确认。
+- 资源自带 `GideonPlayerCharacter` 中删除了两个无用的旧 VR 重置节点，以消除缺少 XRBase 导致的红色编译错误；该示例的旧输入映射黄色警告保留，正式玩家不使用该示例。
+- 验证：新角色/动画/火球蓝图严格编译通过；单人 PIE 点地移动达到约 600 cm/s；真实激活火球后记录到重定向蒙太奇与玩家投射物，首次采样距法杖 TipSocket 约 9 cm；双人 Listen Server 的两端角色、动画实例、PlayerState ASC 与生命/法力复制检查通过。
+- 回退实测：执行 `恢复原主角.py` 后 PIE 确认重新生成原 Aura、原 ABP 和原技能，再切回 Gideon。临时敌人 AI 暂停仅存在于测试世界，PIE 已结束；双人测试设置恢复为原单人 Standalone。
+- 备份：`F:\笔记\Aura笔记\主角换皮备份_20261124_230346`，完整 Content/Source/Config/Docs/项目文件共 2,982 个文件、3,819,195,325 字节，逐文件 SHA-256 校验。记录与验证证据位于 `F:\笔记\Aura笔记\.gideon_reskin`。
+- 既有问题：伤害计算仍可能输出缺失 SetByCaller `Damage` 的错误；本次未修改伤害公式。未提交 Git，保留用户原有暂存区状态。
+
 
 ### 2026-11-24（续）— 仓库工程化升级（对标 GitHub UE + AGENTS.md 最佳实践）
 - **完成内容**：

@@ -128,3 +128,12 @@ UAuraAttributeSet / UAuraAbilitySystemComponent (AttributeValueChangeDelegate / 
 - **交互道具**：`Content/Blueprints/Actor/`（药水、水晶、火焰区域）
 - **UI**：`Content/Blueprints/UI/`（`BP_AuraHUD`、`WBP_Overlay`、`WBP_AttributeMenu`、`Bp_OverlayWidgetController`、`Bp_AttributeMenuWidgetController`）
 - **输入**：`Content/Blueprints/Inputs/`（`IMC_AuraContest`、`GA_AuraInputConfig`、`IA_*`）
+
+
+## Gideon 换皮资产分支（2026-11-24）
+
+当前 `Bp_AuraGameMode.DefaultPawnClass` 指向 `/Game/Reskin/Gideon/Character/BP_Aura_Gideon`，该蓝图以原 `Bp_Aura_Character` 为父类，因此 ABP 中原有的主角类型转换、MotionWarping 接口与 C++/GAS 初始化仍有效。回退只需恢复 GameMode 的原主角引用。
+
+`Content/Reskin/Gideon/` 集中存放新增副本：Meshes、Retarget、Animations、NativeAnimations、Abilities 和 Character。ABP 延用 Aura 的速度/状态机/DefaultSlot；Idle/Jog 来自 Gideon 原生动画副本，火球施法来自 Aura -> Gideon 重定向。`GA_FireBolt_Gideon -> AM_Cast_FireBolt_Gideon -> AN_MontageEvent(Event.Montage.FireBall) -> SpawnProjectile(CombatSocket.Weapon) -> Weapon.TipSocket`，火球伤害与复制仍使用原实现。玩家 ASC Owner 仍是 PlayerState。
+
+原角色、原技能和原骨架未替换。Gideon 原生受击蒙太奇仅配置到新主角属性；本次未新增玩家受击能力。资源自带的 `GideonPlayerCharacter` 仅修复无用 VR 节点，不作为正式玩家父类。
