@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Character/AuraCharater.h"
+#include "Character/AuraCharacter.h"
 
 #include "AbilitySystemComponent.h"
-#include "AbilitySystem/AuraabilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/AuraPlayerController.h"
 #include "Player/AuraPlayerState.h"
@@ -50,7 +50,7 @@ void AAuraCharacter::InitAbilityActorInfo()
 	check(AuraPlayerState);
 	AbilitySystemComponent=AuraPlayerState->GetAbilitySystemComponent();
 	AbilitySystemComponent->InitAbilityActorInfo(AuraPlayerState,this);
-	Cast<UAuraabilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
+	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 	AttributeSet=AuraPlayerState->GetAttributeSet();
 	
 	//进行这个if判断是因为只有在本地客户端才能get到Controller

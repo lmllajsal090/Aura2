@@ -7,7 +7,7 @@
 #include "Engine/DataAsset.h"
 #include "AuraInputConfig.generated.h"
 
-USTRUCT(BluePrintType)
+USTRUCT(BlueprintType)
 struct FAuraInputAction
 {
 	GENERATED_BODY()

@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
-#include "GameplayTagContainer.h"
 
 /**
  * 
@@ -36,7 +35,7 @@ public:
 	FGameplayTag InputTag_4;
 	
 	FGameplayTag Damage;
-	FGameplayTag Effects_HitDamage	;
+	FGameplayTag Effects_HitReact;
 	
 	FGameplayTag Damage_Arcane;
 	FGameplayTag Damage_Fire;

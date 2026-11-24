@@ -8,7 +8,7 @@
 #include "AuraEffectActor.generated.h"
 
 class UGameplayEffect;
-class UAuraabilitySystemComponent;
+class UAuraAbilitySystemComponent;
 
 UENUM(BlueprintType)
 enum class EEffectApplicationPolicy:uint8

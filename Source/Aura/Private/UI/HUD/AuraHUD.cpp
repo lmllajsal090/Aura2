@@ -3,9 +3,9 @@
 
 #include "UI/HUD/AuraHUD.h"
 
-#include "UI/WidgerController/AttributeMenuWidgetController.h"
+#include "UI/WidgetController/AttributeMenuWidgetController.h"
 #include "UI/Widgets/AuraUserWidget.h"
-#include "UI/WidgerController/OverlayWidgetController.h"
+#include "UI/WidgetController/OverlayWidgetController.h"
 
 
 UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)

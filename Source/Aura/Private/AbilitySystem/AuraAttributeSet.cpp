@@ -4,7 +4,7 @@
 
 #include "AuraGameplayTags.h"
 #include "GameplayEffectExtension.h"
-#include "AbilitySystem/AuraabilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAbilitySystemLibrary.h"
 #include "AbilitySystem/Ability/AuraGameplayAbility.h"
 #include "GameFramework/Character.h"
@@ -115,10 +115,10 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 	{
 		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
 	}
-	if (Data.EvaluatedData.Attribute==GetInComingDamageAttribute())
+	if (Data.EvaluatedData.Attribute==GetIncomingDamageAttribute())
 	{
-		const float LocalIncomingDamage = GetInComingDamage();
-		SetInComingDamage(0.f);
+		const float LocalIncomingDamage = GetIncomingDamage();
+		SetIncomingDamage(0.f);
 		if (LocalIncomingDamage>0.f)
 		{
 			const float NewHealth = GetHealth() - LocalIncomingDamage;
@@ -135,7 +135,7 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 			else
 			{
 				FGameplayTagContainer TagContainer;
-				TagContainer.AddTag(FAuraGameplayTags::Get().Effects_HitDamage);
+				TagContainer.AddTag(FAuraGameplayTags::Get().Effects_HitReact);
 				Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);
 			}
 			

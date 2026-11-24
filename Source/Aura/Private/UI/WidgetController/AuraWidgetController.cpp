@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/WidgerController/AuraWidgetController.h"
+#include "UI/WidgetController/AuraWidgetController.h"
 
 
 void UAuraWidgetController::SetWidgetControllerParams(const FWidgetControllerParams& WCParams)

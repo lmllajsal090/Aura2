@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Character/AuraCharacterBase.h"
 #include "Interaction/EnemyInterface.h"
-#include "UI/WidgerController/OverlayWidgetController.h"
+#include "UI/WidgetController/OverlayWidgetController.h"
 #include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "AuraEnemy.generated.h"
 
@@ -60,10 +60,10 @@ protected:
 	virtual  void InitAbilityActorInfo() override;
 	virtual void InitializeDefaultAttributes() const override;
 	
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Character Class Deafults")
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Character Class Defaults")
 	int32 Level=1;
 	
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Character Class Deafults")
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Character Class Defaults")
 	ECharacterClass CharacterClass=ECharacterClass::Warrior;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)

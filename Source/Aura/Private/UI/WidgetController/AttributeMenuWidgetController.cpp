@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/WidgerController/AttributeMenuWidgetController.h"
+#include "UI/WidgetController/AttributeMenuWidgetController.h"
 
 #include "AuraGameplayTags.h"
 #include "AbilitySystem/AuraAttributeSet.h"

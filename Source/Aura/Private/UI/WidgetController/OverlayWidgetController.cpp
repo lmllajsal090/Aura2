@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/WidgerController/OverlayWidgetController.h"
+#include "UI/WidgetController/OverlayWidgetController.h"
 
-#include "AbilitySystem/AuraabilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 
 void UOverlayWidgetController::BroadcastInitiaValue()
@@ -48,7 +48,7 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 			}
 		);
 	
-	Cast<UAuraabilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
+	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
                 	[this](const FGameplayTagContainer& AssetTags)
                 	{
                 		for (const FGameplayTag& Tag : AssetTags)

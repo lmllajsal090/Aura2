@@ -9,7 +9,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "NavigationPath.h"
 #include "NavigationSystem.h"
-#include "AbilitySystem/AuraabilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "Components/SplineComponent.h"
 #include "Input/AuraInputComponent.h"
 #include "Interaction/EnemyInterface.h"
@@ -68,7 +68,7 @@ void AAuraPlayerController::AutoRun()
 		LocationOnSpline, ESplineCoordinateSpace::World);
 	ControlledPawn->AddMovementInput(Direction);
 	
-	if (FVector::Dist(LocationOnSpline, CatchDestination) <= AutoRunAcceptanceRadius)
+	if (FVector::Dist(LocationOnSpline, CachedDestination) <= AutoRunAcceptanceRadius)
 	{
 		bAutoRunning = false;
 	}
@@ -201,7 +201,7 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 			UWorld* World = GetWorld();
 			UNavigationPath* NavPath = World
 				? UNavigationSystemV1::FindPathToLocationSynchronously(
-					World, ControlledPawn->GetActorLocation(), CatchDestination, ControlledPawn)
+					World, ControlledPawn->GetActorLocation(), CachedDestination, ControlledPawn)
 				: nullptr;
 			
 			if (IsValid(NavPath) && NavPath->IsValid() && NavPath->PathPoints.Num() > 1)
@@ -211,7 +211,7 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 				{
 					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
 				}
-				CatchDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
+				CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
 				bAutoRunning = true;
 			}
 			else
@@ -252,22 +252,22 @@ void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	
 		if (CursorHit.bBlockingHit)
 		{
-			CatchDestination=CursorHit.ImpactPoint;
+			CachedDestination=CursorHit.ImpactPoint;
 		}
 		
 		if (APawn* ControlledPawn=GetPawn())
 		{
-			const FVector WorldDirection=(CatchDestination-ControlledPawn->GetActorLocation()).GetSafeNormal();
+			const FVector WorldDirection=(CachedDestination-ControlledPawn->GetActorLocation()).GetSafeNormal();
 			ControlledPawn->AddMovementInput(WorldDirection);
 		}
 	}
 }
 
-UAuraabilitySystemComponent* AAuraPlayerController::GetASC()
+UAuraAbilitySystemComponent* AAuraPlayerController::GetASC()
 {
 	if (AbilitySystemComponent==nullptr)
 	{
-		AbilitySystemComponent=Cast<UAuraabilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
+		AbilitySystemComponent=Cast<UAuraAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
 	}
 	return AbilitySystemComponent;
 }

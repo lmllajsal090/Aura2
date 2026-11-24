@@ -10,7 +10,7 @@
 class UInputMappingContext;
 class UInputAction;
 class IEnemyInterface; 
-class UAuraabilitySystemComponent;
+class UAuraAbilitySystemComponent;
 struct FInputActionValue;
 class USplineComponent;
 class UDamageTextComponent;
@@ -63,11 +63,11 @@ private:
 	bool bShiftPressed = false;
 	
 	UPROPERTY()
-	TObjectPtr<UAuraabilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<UAuraAbilitySystemComponent> AbilitySystemComponent;
 	
-	UAuraabilitySystemComponent* GetASC();
+	UAuraAbilitySystemComponent* GetASC();
 	
-	FVector CatchDestination=FVector::ZeroVector;
+	FVector CachedDestination=FVector::ZeroVector;
 	float FollowTime=0.f;
 	float ShortPressThreshold=0.5f;
 	bool bAutoRunning = false;

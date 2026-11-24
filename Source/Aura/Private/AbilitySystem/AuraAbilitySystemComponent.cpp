@@ -1,20 +1,20 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "AbilitySystem/AuraabilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameplayTagContainer.h" 
 #include "AbilitySystem/Ability/AuraGameplayAbility.h"
 
-void UAuraabilitySystemComponent::AbilityActorInfoSet() 
+void UAuraAbilitySystemComponent::AbilityActorInfoSet() 
 {
 
 	OnGameplayEffectAppliedDelegateToSelf.AddUObject(
         this,
-        &UAuraabilitySystemComponent::ClientEffectApplied
+        &UAuraAbilitySystemComponent::ClientEffectApplied
     );
 }
 
-void UAuraabilitySystemComponent::AddCharacterAbilities(
+void UAuraAbilitySystemComponent::AddCharacterAbilities(
 	const TArray<TSubclassOf<UGameplayAbility>>& StartupGameplayAbilities)
 {
 	for (const TSubclassOf<UGameplayAbility> Ability : StartupGameplayAbilities)
@@ -28,12 +28,12 @@ void UAuraabilitySystemComponent::AddCharacterAbilities(
 	}
 }
 
-void UAuraabilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& InputTag)
+void UAuraAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& InputTag)
 {
 	
 }
 
-void UAuraabilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputTag)
+void UAuraAbilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputTag)
 {
 	if (!InputTag.IsValid()) return;
 	for (auto& AbilitySpec:GetActivatableAbilities())
@@ -49,7 +49,7 @@ void UAuraabilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputT
 	}
 }
 
-void UAuraabilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& InputTag)
+void UAuraAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& InputTag)
 {
 	if (!InputTag.IsValid()) return;
 	for (auto& AbilitySpec:GetActivatableAbilities())
@@ -61,7 +61,7 @@ void UAuraabilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& In
 	}
 }
 
-void UAuraabilitySystemComponent::ClientEffectApplied_Implementation(
+void UAuraAbilitySystemComponent::ClientEffectApplied_Implementation(
 UAbilitySystemComponent* AbilitySystemComponent,
 const FGameplayEffectSpec& EffectSpec,
 FActiveGameplayEffectHandle ActiveHandle

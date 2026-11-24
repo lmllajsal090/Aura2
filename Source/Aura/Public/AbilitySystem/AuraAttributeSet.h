@@ -169,8 +169,8 @@ public:
 	 */
 	
 	UPROPERTY(BlueprintReadOnly,Category="Meta Attributes")
-	FGameplayAttributeData InComingDamage;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, InComingDamage);
+	FGameplayAttributeData IncomingDamage;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, IncomingDamage);
 	
 	UFUNCTION()
 	void  OnRep_Health(const FGameplayAttributeData& OldHealth)const;

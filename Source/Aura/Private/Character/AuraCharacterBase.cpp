@@ -5,7 +5,7 @@
 
 #include "AbilitySystemComponent.h"
 #include "AuraGameplayTags.h"
-#include "AbilitySystem/AuraabilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "Aura/Aura.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -140,7 +140,7 @@ void AAuraCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> Gameplay
 
 void AAuraCharacterBase::AddCharacterAbilities()
 {
-	UAuraabilitySystemComponent* AuraASC=CastChecked<UAuraabilitySystemComponent>(AbilitySystemComponent);
+	UAuraAbilitySystemComponent* AuraASC=CastChecked<UAuraAbilitySystemComponent>(AbilitySystemComponent);
 	if (!HasAuthority())return;
 	
 	AuraASC->AddCharacterAbilities(StartupGameplayAbilities);

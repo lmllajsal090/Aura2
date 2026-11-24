@@ -59,9 +59,9 @@ public:
 		UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle,bool bInIsCriticalHit
 	);
 	
-	UFUNCTION(BlueprintCallable,Category="AuraAbilitySystemLibrary|GameplayMechnics")
+	UFUNCTION(BlueprintCallable,Category="AuraAbilitySystemLibrary|GameplayMechanics")
 	static void GetLivePlayerWithRadius(const UObject* WorldContextObject,TArray<AActor*>& OutOverlappingActors,const TArray<AActor*>& IgnoreActors,float Radius,const FVector& SphereLocation);
 	
-	UFUNCTION(BlueprintCallable,Category="AuraAbilitySystemLibrary|GameplayMechnics")
+	UFUNCTION(BlueprintCallable,Category="AuraAbilitySystemLibrary|GameplayMechanics")
 	static bool IsNotFriend(AActor* FirstActor, AActor* SecondActor);
 };

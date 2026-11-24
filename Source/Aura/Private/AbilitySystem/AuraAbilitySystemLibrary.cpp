@@ -11,8 +11,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Player/AuraPlayerState.h"
 #include "UI/HUD/AuraHUD.h"
-#include "UI/WidgerController/AttributeMenuWidgetController.h"
-#include "UI/WidgerController/AuraWidgetController.h"
+#include "UI/WidgetController/AttributeMenuWidgetController.h"
+#include "UI/WidgetController/AuraWidgetController.h"
 
 UOverlayWidgetController* UAuraAbilitySystemLibrary::GetOverlayWidgetController(const UObject* WorldContextObject)
 {
