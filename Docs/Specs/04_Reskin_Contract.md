@@ -24,7 +24,7 @@
 ### 1.3 碰撞通道与材质溶解
 - [ ] `CapsuleComponent`：`ECC_Camera` = Ignore，`bGenerateOverlapEvents` = false。
 - [ ] `Mesh`：`ECC_Camera` = Ignore，`ECC_Projectile` = Overlap，`bGenerateOverlapEvents` = true。
-- [ ] 死亡溶解：`AAuraCharacterBase::Dissolve()` 默认仅替换 **Material Slot 0**（`GetMesh()->SetMaterial(0, DynamicMatInst)`）。如果新主角模型有多个材质槽，需提前评估是否把 `Dissolve()` 改为遍历 `GetNumMaterials()` 全部替换。
+- [x] 原角色继续使用 `AAuraCharacterBase::Dissolve()` 单槽溶解。Gideon 在 `AAuraCharacter` 中配置死亡专用 `DeathPhysicsAsset`、`BodyDeathMaterials` 和 `WeaponDeathMaterials`。身体与法杖按索引配置全部槽位，材质均实现 `Dissolve` 参数。
 
 ---
 
@@ -60,6 +60,8 @@
 - [x] 双人 Listen Server 角色、动画实例、ASC Owner、生命/法力复制检查；测试后恢复原 PIE 设置。
 - [x] 真正切回原 Aura 并启动 PIE，确认回退有效，再切回 Gideon。
 - [x] Gideon 受击 GAS 能力已接入。单人测试扣血、动画和施法中断恢复，双人测试客户端受击蒙太奇播放。
-- [ ] 完整死亡布娃娃/多材质溶解表现、脚步滑动与多人完整战斗回归验收。
+- [x] 受击完整姿势和预览修正，按 Aura 命名约定整理当前动作资产，恢复原版脚步通知。
+- [x] 受伤致死、布娃娃倒地、法杖脱手和 16 个材质槽完整溶解通过单人及双人 PIE。
+- [ ] 脚步滑动与多人完整战斗回归验收。
 
 本次不视为整个 M5.1 或地图换皮完成。完整备份与回退脚本见 `F:\笔记\Aura笔记\主角换皮备份_20261124_230346`，详细证据见 `.gideon_reskin` 工作记录目录。
